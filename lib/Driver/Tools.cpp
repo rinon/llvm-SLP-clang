@@ -3340,6 +3340,13 @@ void Clang::ConstructJob(Compilation &C, const JobAction &JA,
     CmdArgs.push_back("-vectorize-slp-aggressive");
   }
 
+  // -fno-slp-vectorize-aggressive-global is default.
+  if (Args.hasFlag(options::OPT_fslp_vectorize_aggressive_global,
+                   options::OPT_fno_slp_vectorize_aggressive_global, false)) {
+    CmdArgs.push_back("-backend-option");
+    CmdArgs.push_back("-vectorize-slp-aggressive-global");
+  }
+
   if (Arg *A = Args.getLastArg(options::OPT_fshow_overloads_EQ))
     A->render(Args, CmdArgs);
 
